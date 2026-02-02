@@ -1,0 +1,23 @@
+---
+title: "Blog Post 1"
+author: "John Donnellan"
+date: "2026-02-04"
+categories: [news, code, analysis]
+---
+
+Introduction:
+
+what data set are you working with?
+what variables are you most interested in? How many observations are in your data set?
+what is your question of interest?
+where did you get the data from? (If possible, give a link to the data source).
+what other pieces of context are important to explain to the reader?
+
+Loading the Data
+```{r}
+pixar_films <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-03-11/pixar_films.csv')
+public_response <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-03-11/public_response.csv')
+```
+
+
+
