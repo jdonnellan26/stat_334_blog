@@ -47,6 +47,7 @@ wine <- wine_ratings |>
 The dataset was first cleaned by removing observations with missing values for price, country, variety, and province to ensure that all variables used in the analysis were complete. We then selected only the relevant variables and removed the 100 most expensive wines, as these extreme price outliers were disproportionately inflating the mean price and distorting comparisons across countries and varieties.
 
 **Graph #1**
+
 ```{r}
 wine |>
   group_by(variety) |>
@@ -97,9 +98,9 @@ wine |>
   
 ```
 
-Interpretation: 
+Interpretation:
 
-This boxplot compares the distribution of wine ratings across countries with more than 400 reviewed wines, with color indicating each country’s average price binned into $5 increments. While there is some variation in median ratings, most countries cluster between roughly 86 and 90 points, suggesting that overall quality is relatively consistent among countries. Countries with higher average prices do not always have higher average ratings, indicating that price alone does not guarantee more points.
+This boxplot compares the distribution of wine ratings across countries with more than 400 reviewed wines, with color indicating each country’s average price binned into \$5 increments. While there is some variation in median ratings, most countries cluster between roughly 86 and 90 points, suggesting that overall quality is relatively consistent among countries. Countries with higher average prices do not always have higher average ratings, indicating that price alone does not guarantee more points.
 
 **Graph #3**
 
@@ -130,7 +131,7 @@ wine |>
 
 Interpretation:
 
-This boxplot shows the distribution of ratings for grape varieties with more than 1,200 reviews, ordered by their average rating and colored by average price(binned in $10 increments). Varieties such as Nebbiolo and Champagne Blend appear above the overall average rating (dashed line), indicating stronger ratings for expensive varieties. In contrast, varieties like Rose, Merlot, and White Blend tend to fall below the overall mean, though their distributions still overlap heavily with higher-rated types.
+This boxplot shows the distribution of ratings for grape varieties with more than 1,200 reviews, ordered by their average rating and colored by average price(binned in \$10 increments). Varieties such as Nebbiolo and Champagne Blend appear above the overall average rating (dashed line), indicating stronger ratings for expensive varieties. In contrast, varieties like Rose, Merlot, and White Blend tend to fall below the overall mean, though their distributions still overlap heavily with higher-rated types.
 
 **Conclusion and Wrap-Up**
 
