@@ -2,5 +2,12 @@
   {
     "listing": "/stuff/index.html",
     "items": []
+  },
+  {
+    "listing": "/index.html",
+    "items": [
+      "/posts/post-with-code/blog-post-2/index.html",
+      "/posts/welcome/index.html"
+    ]
   }
 ]
