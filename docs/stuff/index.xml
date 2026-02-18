@@ -10,6 +10,6 @@
 <atom:link href="https://your-website-url.example.com/stuff/index.xml" rel="self" type="application/rss+xml"/>
 <description>A blog built with Quarto</description>
 <generator>quarto-1.8.25</generator>
-<lastBuildDate>Wed, 18 Feb 2026 15:58:31 GMT</lastBuildDate>
+<lastBuildDate>Wed, 18 Feb 2026 16:04:37 GMT</lastBuildDate>
 </channel>
 </rss>
