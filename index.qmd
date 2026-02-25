@@ -1,5 +1,5 @@
 ---
-title: "stat_334_blog"
+title: "Stat 334: Data Visualization"
 listing:
   contents: posts
   feed: true

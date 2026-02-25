@@ -1,6 +1,6 @@
 ---
 title: "About John Donnellan"
-image: profile.jpg
+image: profile1.jpeg
 about:
   template: jolla
   links:
