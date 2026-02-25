@@ -1,5 +1,5 @@
 ---
-title: "Post 1: Pixar Film Ratings"
+title: "Pixar Film Ratings"
 author: "John Donnellan"
 date: "2026-02-04"
 categories: [analysis]

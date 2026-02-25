@@ -1,5 +1,5 @@
 ---
-title: "Post 2: Wine Ratings"
+title: "Wine Ratings by Variety and Origin"
 author: "John Donnellan"
 date: "2026-02-18"
 categories: [analysis]
