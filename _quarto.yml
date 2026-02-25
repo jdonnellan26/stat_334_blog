@@ -15,7 +15,7 @@ website:
 format:
   html:
     theme:
-      - midnight
+      - minimal
       - brand
     css: styles.css
 

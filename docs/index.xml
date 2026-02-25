@@ -12,7 +12,7 @@
 <generator>quarto-1.8.25</generator>
 <lastBuildDate>Wed, 18 Feb 2026 05:00:00 GMT</lastBuildDate>
 <item>
-  <title>Post 2: Wine Ratings</title>
+  <title>Wine Ratings by Variety and Origin</title>
   <dc:creator>John Donnellan</dc:creator>
   <link>https://your-website-url.example.com/posts/blog-post-2/</link>
   <description><![CDATA[ 
@@ -510,7 +510,7 @@ font-style: inherit;">theme_minimal</span>()</span></code></pre></div></div>
   <pubDate>Wed, 18 Feb 2026 05:00:00 GMT</pubDate>
 </item>
 <item>
-  <title>Post 1: Pixar Film Ratings</title>
+  <title>Pixar Film Ratings</title>
   <dc:creator>John Donnellan</dc:creator>
   <link>https://your-website-url.example.com/posts/blog-post-1/</link>
   <description><![CDATA[ 
