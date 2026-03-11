@@ -49,7 +49,7 @@ ggplot(office_ratings, aes(x = season, y = imdb_rating, color = season)) +
   geom_point() +
   geom_boxplot() +
   geom_hline(
-    yintercept = mean(office_ratings$imdb_rating, na.rm = TRUE),
+    yintercept = mean(office_ratings$imdb_rating),
     linetype = "dashed",
     linewidth = .8,
     color = "darkgrey"
@@ -57,6 +57,7 @@ ggplot(office_ratings, aes(x = season, y = imdb_rating, color = season)) +
   labs(
     x = "Season",
     y = "IMDB Rating",
+    color = "Season",
     title = "Distribution of Office Episode Ratings by Season",
     caption = "The dashed horizontal line represents the overall mean IMDb rating across all episodes."
   )+
@@ -80,7 +81,8 @@ ggplot(office_ratings, aes(x = episode, y = imdb_rating, color = season)) +
     x = "Episode Number",
     y = "IMDB Rating",
     color = "Season",
-    title = "Episode Rating Trends by Season")
+    title = "Episode Rating Trends by Season")+
+    theme(legend.position = "none")
 ```
 
 **Interpretation:**

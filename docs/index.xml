@@ -100,11 +100,7 @@ font-style: inherit;">yintercept =</span> <span class="fu" style="color: #4758AB
 background-color: null;
 font-style: inherit;">mean</span>(office_ratings<span class="sc" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">$</span>imdb_rating, <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">na.rm =</span> <span class="cn" style="color: #8f5902;
-background-color: null;
-font-style: inherit;">TRUE</span>),</span>
+font-style: inherit;">$</span>imdb_rating),</span>
 <span id="cb2-6">    <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">linetype =</span> <span class="st" style="color: #20794D;
@@ -138,18 +134,23 @@ background-color: null;
 font-style: inherit;">"IMDB Rating"</span>,</span>
 <span id="cb2-13">    <span class="at" style="color: #657422;
 background-color: null;
+font-style: inherit;">color =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Season"</span>,</span>
+<span id="cb2-14">    <span class="at" style="color: #657422;
+background-color: null;
 font-style: inherit;">title =</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Distribution of Office Episode Ratings by Season"</span>,</span>
-<span id="cb2-14">    <span class="at" style="color: #657422;
+<span id="cb2-15">    <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">caption =</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"The dashed horizontal line represents the overall mean IMDb rating across all episodes."</span></span>
-<span id="cb2-15">  )<span class="sc" style="color: #5E5E5E;
+<span id="cb2-16">  )<span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span></span>
-<span id="cb2-16">  <span class="fu" style="color: #4758AB;
+<span id="cb2-17">  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">theme_minimal</span>()</span></code></pre></div></div>
 <div class="cell-output-display">
@@ -220,7 +221,16 @@ font-style: inherit;">"Season"</span>,</span>
 background-color: null;
 font-style: inherit;">title =</span> <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"Episode Rating Trends by Season"</span>)</span></code></pre></div></div>
+font-style: inherit;">"Episode Rating Trends by Season"</span>)<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span></span>
+<span id="cb3-10">    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">theme</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">legend.position =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"none"</span>)</span></code></pre></div></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
