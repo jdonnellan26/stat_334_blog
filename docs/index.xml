@@ -24,9 +24,9 @@
 <p><strong>Introduction:</strong></p>
 <p>This dataset contains information on all 188 episodes of The Office, beginning with the pilot episode in 2005 and ending with the series finale in 2013. The show spans nine seasons and provides a useful dataset for examining trends in episode ratings over time. In this analysis, I will explore how IMDb ratings vary across seasons and identify notable outliers, including episodes that received particularly high or low ratings.</p>
 <p><strong>Research Question:</strong></p>
-<p>How do IMDb ratings for The Office vary from season to season, and what factors might explain the highest- and lowest-rated episodes?</p>
+<p>How do IMDb ratings and audience engagement (measured by total votes) vary across seasons of The Office?</p>
 <p>Link to the data set: <a href="https://github.com/rfordatascience/tidytuesday/blob/main/data/2020/2020-03-17/readme.md" class="uri">https://github.com/rfordatascience/tidytuesday/blob/main/data/2020/2020-03-17/readme.md</a></p>
-<p>The Variables:</p>
+<p><strong>The Variables:</strong></p>
 <ul>
 <li><p>season: Season number</p></li>
 <li><p>episode: Episode number</p></li>
@@ -35,7 +35,7 @@
 <li><p>total_votes: Total number of votes submitted by IMDB users</p></li>
 <li><p>air_date: Original air date of the episode</p></li>
 </ul>
-<p>Loading the Data:</p>
+<p><strong>Loading the Data:</strong></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -43,10 +43,7 @@ font-style: inherit;">library</span>(tidyverse)</span>
 <span id="cb1-2"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">library</span>(readr)</span>
-<span id="cb1-3"><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">library</span>(ggeffects)</span>
-<span id="cb1-4">office_ratings <span class="ot" style="color: #003B4F;
+<span id="cb1-3">office_ratings <span class="ot" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">&lt;-</span> readr<span class="sc" style="color: #5E5E5E;
 background-color: null;
@@ -55,13 +52,13 @@ background-color: null;
 font-style: inherit;">read_csv</span>(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2020/2020-03-17/office_ratings.csv'</span>)</span>
-<span id="cb1-5"></span>
-<span id="cb1-6">office_ratings <span class="ot" style="color: #003B4F;
+<span id="cb1-4"></span>
+<span id="cb1-5">office_ratings <span class="ot" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">&lt;-</span> office_ratings <span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">|&gt;</span></span>
-<span id="cb1-7">  <span class="fu" style="color: #4758AB;
+<span id="cb1-6">  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">mutate</span>(<span class="at" style="color: #657422;
 background-color: null;
@@ -69,7 +66,7 @@ font-style: inherit;">season =</span> <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">factor</span>(season))</span></code></pre></div></div>
 </div>
-<p>Graph 1:</p>
+<p><strong>Graph 1:</strong></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -86,7 +83,7 @@ background-color: null;
 font-style: inherit;">+</span></span>
 <span id="cb2-2">  <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">geom_point</span>()<span class="sc" style="color: #5E5E5E;
+font-style: inherit;">geom_point</span>() <span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span></span>
 <span id="cb2-3">  <span class="fu" style="color: #4758AB;
@@ -96,23 +93,65 @@ background-color: null;
 font-style: inherit;">+</span></span>
 <span id="cb2-4">  <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">labs</span>(</span>
+font-style: inherit;">geom_hline</span>(</span>
 <span id="cb2-5">    <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">yintercept =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">mean</span>(office_ratings<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>imdb_rating, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">na.rm =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>),</span>
+<span id="cb2-6">    <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">linetype =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"dashed"</span>,</span>
+<span id="cb2-7">    <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">linewidth =</span> .<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">8</span>,</span>
+<span id="cb2-8">    <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">color =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"darkgrey"</span></span>
+<span id="cb2-9">  ) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span></span>
+<span id="cb2-10">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">labs</span>(</span>
+<span id="cb2-11">    <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">x =</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Season"</span>,</span>
-<span id="cb2-6">    <span class="at" style="color: #657422;
+<span id="cb2-12">    <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">y =</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"IMDB Rating"</span>,</span>
-<span id="cb2-7">    <span class="at" style="color: #657422;
+<span id="cb2-13">    <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">title =</span> <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"Distribution of Office Episode Ratings by Season"</span></span>
-<span id="cb2-8">  )</span></code></pre></div></div>
+font-style: inherit;">"Distribution of Office Episode Ratings by Season"</span>,</span>
+<span id="cb2-14">    <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">caption =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"The dashed horizontal line represents the overall mean IMDb rating across all episodes."</span></span>
+<span id="cb2-15">  )<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span></span>
+<span id="cb2-16">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">theme_minimal</span>()</span></code></pre></div></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -120,64 +159,12 @@ font-style: inherit;">"Distribution of Office Episode Ratings by Season"</span><
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1">office_ratings <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">|&gt;</span></span>
-<span id="cb3-2">  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">arrange</span>(<span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">desc</span>(imdb_rating)) <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">|&gt;</span></span>
-<span id="cb3-3">  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">slice</span>(<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1</span><span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">:</span><span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">3</span>)</span></code></pre></div></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 × 6
-  season episode title            imdb_rating total_votes air_date  
-  &lt;fct&gt;    &lt;dbl&gt; &lt;chr&gt;                  &lt;dbl&gt;       &lt;dbl&gt; &lt;date&gt;    
-1 7           21 Goodbye, Michael         9.7        5749 2011-04-28
-2 9           23 Finale                   9.7        7934 2013-05-16
-3 5           13 Stress Relief            9.6        5948 2009-02-01</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1">office_ratings <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">|&gt;</span></span>
-<span id="cb5-2">  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">arrange</span>(imdb_rating) <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">|&gt;</span></span>
-<span id="cb5-3">  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">slice</span>(<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1</span><span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">:</span><span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">3</span>)</span></code></pre></div></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 × 6
-  season episode title        imdb_rating total_votes air_date  
-  &lt;fct&gt;    &lt;dbl&gt; &lt;chr&gt;              &lt;dbl&gt;       &lt;dbl&gt; &lt;date&gt;    
-1 8           19 Get the Girl         6.7        1642 2012-03-15
-2 6           14 The Banker           6.8        2288 2010-01-21
-3 8            8 Gettysburg           7          1584 2011-11-17</code></pre>
-</div>
-</div>
-<p>Interpretation:</p>
+<p><strong>Interpretation:</strong></p>
 <p>The boxplot shows that episode ratings for The Office are highest in the middle seasons, particularly Seasons 3–5, where the median ratings are above about 8.5. In contrast, the later seasons, Seasons 8 and 9 have lower median ratings, indicating a decline in audience reception toward the end of the series. The three highest-rated episodes are “Goodbye, Michael” (Season 7) and “Finale” (Season 9), both rated 9.7, along with “Stress Relief” (Season 5) at 9.6, which stand out as clear outliers. On the other hand, the lowest-rated episodes “Get the Girl” (Season 8) with a 6.7 rating, “The Banker” (Season 6) at 6.8, and “Gettysburg” (Season 8) at 7.0 fall well below the typical range.</p>
-<p>Graph 2:</p>
+<p><strong>Graph 2:</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">ggplot</span>(office_ratings, <span class="fu" style="color: #4758AB;
 background-color: null;
@@ -190,12 +177,12 @@ background-color: null;
 font-style: inherit;">color =</span> season)) <span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span></span>
-<span id="cb7-2">  <span class="fu" style="color: #4758AB;
+<span id="cb3-2">  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">geom_point</span>()<span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span></span>
-<span id="cb7-3">  <span class="fu" style="color: #4758AB;
+<span id="cb3-3">  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">geom_smooth</span>(<span class="at" style="color: #657422;
 background-color: null;
@@ -204,36 +191,36 @@ background-color: null;
 font-style: inherit;">FALSE</span>)<span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span></span>
-<span id="cb7-4">  <span class="fu" style="color: #4758AB;
+<span id="cb3-4">  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">facet_wrap</span>(<span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">~</span>season) <span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span></span>
-<span id="cb7-5">    <span class="fu" style="color: #4758AB;
+<span id="cb3-5">    <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">labs</span>(</span>
-<span id="cb7-6">    <span class="at" style="color: #657422;
+<span id="cb3-6">    <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">x =</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Episode Number"</span>,</span>
-<span id="cb7-7">    <span class="at" style="color: #657422;
+<span id="cb3-7">    <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">y =</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"IMDB Rating"</span>,</span>
-<span id="cb7-8">    <span class="at" style="color: #657422;
+<span id="cb3-8">    <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">color =</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Season"</span>,</span>
-<span id="cb7-9">    <span class="at" style="color: #657422;
+<span id="cb3-9">    <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">title =</span> <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"Episode Ratings of The Office by Season"</span>)</span></code></pre></div></div>
+font-style: inherit;">"Episode Rating Trends by Season"</span>)</span></code></pre></div></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -242,11 +229,11 @@ font-style: inherit;">"Episode Ratings of The Office by Season"</span>)</span></
 </div>
 </div>
 </div>
-<p>Interpretation:</p>
+<p><strong>Interpretation:</strong></p>
 <p>This faceted plot shows how IMDb ratings change across episodes within each season of The Office. Seasons 2 through 5 generally maintain consistently high ratings, suggesting these seasons represent the strongest and most stable period of the show. Beginning around Season 6, the ratings begin to vary and tend to trend slightly downward, with Seasons 8 and 9 showing the lowest overall ratings across their episodes. However, Season 9 ends with a sharp increase in ratings for the final episodes in the highly rated series finale.</p>
-<p>Graph 3:</p>
+<p><strong>Graph 3:</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">ggplot</span>(office_ratings, <span class="fu" style="color: #4758AB;
 background-color: null;
@@ -259,35 +246,49 @@ background-color: null;
 font-style: inherit;">color =</span> season)) <span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span></span>
-<span id="cb8-2">  <span class="fu" style="color: #4758AB;
+<span id="cb4-2">  <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">geom_point</span>()<span class="sc" style="color: #5E5E5E;
+font-style: inherit;">geom_point</span>() <span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span></span>
-<span id="cb8-3">  <span class="fu" style="color: #4758AB;
+<span id="cb4-3">  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">geom_boxplot</span>() <span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span></span>
-<span id="cb8-4">  <span class="fu" style="color: #4758AB;
+<span id="cb4-4">  <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">labs</span>(</span>
-<span id="cb8-5">    <span class="at" style="color: #657422;
+<span id="cb4-5">    <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">x =</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Votes"</span>,</span>
-<span id="cb8-6">    <span class="at" style="color: #657422;
+<span id="cb4-6">    <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">y =</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Season"</span>,</span>
-<span id="cb8-7">    <span class="at" style="color: #657422;
+<span id="cb4-7">    <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">title =</span> <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"Distribution Votes by Season"</span></span>
-<span id="cb8-8">  )</span></code></pre></div></div>
+font-style: inherit;">"Distribution of Votes by Season"</span></span>
+<span id="cb4-8">  ) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span></span>
+<span id="cb4-9">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">theme_minimal</span>() <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span></span>
+<span id="cb4-10">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">theme</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">legend.position =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"none"</span>)</span></code></pre></div></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -295,39 +296,12 @@ font-style: inherit;">"Distribution Votes by Season"</span></span>
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1">office_ratings <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">|&gt;</span></span>
-<span id="cb9-2">  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">arrange</span>(<span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">desc</span>(total_votes)) <span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">|&gt;</span></span>
-<span id="cb9-3">  <span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">slice</span>(<span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">1</span><span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">:</span><span class="dv" style="color: #AD0000;
-background-color: null;
-font-style: inherit;">3</span>)</span></code></pre></div></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 × 6
-  season episode title            imdb_rating total_votes air_date  
-  &lt;fct&gt;    &lt;dbl&gt; &lt;chr&gt;                  &lt;dbl&gt;       &lt;dbl&gt; &lt;date&gt;    
-1 9           23 Finale                   9.7        7934 2013-05-16
-2 5           13 Stress Relief            9.6        5948 2009-02-01
-3 7           21 Goodbye, Michael         9.7        5749 2011-04-28</code></pre>
 </div>
-</div>
-<p>Interpretation:</p>
+<p><strong>Interpretation:</strong></p>
 <p>This boxplot shows the distribution of IMDb vote counts for The Office episodes across each season. Most episodes across all seasons receive between roughly 1,500 and 2,500 votes, though several seasons contain outliers with significantly higher votes. The most voted episodes are “Finale” (Season 9) with 7,934 votes, “Stress Relief” (Season 5) with 5,948 votes, and “Goodbye, Michael” (Season 7) with 5,749 votes, all of which appear as extreme outliers.</p>
-<p>Conclusion and Wrap-Up</p>
+<p><strong>Conclusion and Wrap-Up</strong></p>
 <p>Overall, the ratings of The Office tend to be strongest during the middle seasons. In contrast, the later seasons show lower median ratings and greater variability, suggesting a decline in audience reception toward the end of the series. Despite this, several episodes stand out, including “Goodbye, Michael,” “Stress Relief,” and the series finale, which receive both extremely high ratings and large numbers of votes. One limitation of this analysis is that it relies only on IMDb ratings and vote counts, which reflect viewer opinions but do not capture other factors such as other critical reviewers.</p>
-<p>Connection to Class Ideas</p>
+<p><strong>Connection to Class Ideas</strong></p>
 <p>The boxplots illustrate the distribution and variation in episode ratings across seasons, making it easier to compare medians and identify outliers. The faceted episode plots allow patterns within each season to be viewed clearly while keeping the visualization organized. These visuals also use a combination of coloring, faceting, and trendlines to portray multiple variables without making the graphs look confusing or cluttered, which helps communicate the relationships in the data more effectively.</p>
 
 

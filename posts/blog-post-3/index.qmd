@@ -11,11 +11,11 @@ This dataset contains information on all 188 episodes of The Office, beginning w
 
 **Research Question:**
 
-How do IMDb ratings for The Office vary from season to season, and what factors might explain the highest- and lowest-rated episodes?
+How do IMDb ratings and audience engagement (measured by total votes) vary across seasons of The Office?
 
 Link to the data set: <https://github.com/rfordatascience/tidytuesday/blob/main/data/2020/2020-03-17/readme.md>
 
-The Variables:
+**The Variables:**
 
 -   season: Season number
 
@@ -29,45 +29,46 @@ The Variables:
 
 -   air_date: Original air date of the episode
 
-Loading the Data:
+**Loading the Data:**
 
 ```{r}
 #| message: false
 #| warning: false
 library(tidyverse)
 library(readr)
-library(ggeffects)
 office_ratings <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2020/2020-03-17/office_ratings.csv')
 
 office_ratings <- office_ratings |>
   mutate(season = factor(season))
 ```
 
-Graph 1: 
+**Graph 1:**
+
 ```{r}
 ggplot(office_ratings, aes(x = season, y = imdb_rating, color = season)) +
-  geom_point()+
+  geom_point() +
   geom_boxplot() +
+  geom_hline(
+    yintercept = mean(office_ratings$imdb_rating, na.rm = TRUE),
+    linetype = "dashed",
+    linewidth = .8,
+    color = "darkgrey"
+  ) +
   labs(
     x = "Season",
     y = "IMDB Rating",
-    title = "Distribution of Office Episode Ratings by Season"
-  )
-
-office_ratings |>
-  arrange(desc(imdb_rating)) |>
-  slice(1:3)
-
-office_ratings |>
-  arrange(imdb_rating) |>
-  slice(1:3)
+    title = "Distribution of Office Episode Ratings by Season",
+    caption = "The dashed horizontal line represents the overall mean IMDb rating across all episodes."
+  )+
+  theme_minimal()
 ```
 
-Interpretation:
+**Interpretation:**
 
 The boxplot shows that episode ratings for The Office are highest in the middle seasons, particularly Seasons 3–5, where the median ratings are above about 8.5. In contrast, the later seasons, Seasons 8 and 9 have lower median ratings, indicating a decline in audience reception toward the end of the series. The three highest-rated episodes are “Goodbye, Michael” (Season 7) and “Finale” (Season 9), both rated 9.7, along with “Stress Relief” (Season 5) at 9.6, which stand out as clear outliers. On the other hand, the lowest-rated episodes “Get the Girl” (Season 8) with a 6.7 rating, “The Banker” (Season 6) at 6.8, and “Gettysburg” (Season 8) at 7.0 fall well below the typical range.
 
-Graph 2:
+**Graph 2:**
+
 ```{r}
 #| message: false
 #| warning: false
@@ -79,37 +80,36 @@ ggplot(office_ratings, aes(x = episode, y = imdb_rating, color = season)) +
     x = "Episode Number",
     y = "IMDB Rating",
     color = "Season",
-    title = "Episode Ratings of The Office by Season")
+    title = "Episode Rating Trends by Season")
 ```
 
-Interpretation:
+**Interpretation:**
 
 This faceted plot shows how IMDb ratings change across episodes within each season of The Office. Seasons 2 through 5 generally maintain consistently high ratings, suggesting these seasons represent the strongest and most stable period of the show. Beginning around Season 6, the ratings begin to vary and tend to trend slightly downward, with Seasons 8 and 9 showing the lowest overall ratings across their episodes. However, Season 9 ends with a sharp increase in ratings for the final episodes in the highly rated series finale.
 
-Graph 3:
+**Graph 3:**
+
 ```{r}
 ggplot(office_ratings, aes(x = total_votes, y = season, color = season)) +
-  geom_point()+
+  geom_point() +
   geom_boxplot() +
   labs(
     x = "Votes",
     y = "Season",
-    title = "Distribution Votes by Season"
-  )
-
-office_ratings |>
-  arrange(desc(total_votes)) |>
-  slice(1:3)
+    title = "Distribution of Votes by Season"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "none")
 ```
 
-Interpretation:
+**Interpretation:**
 
 This boxplot shows the distribution of IMDb vote counts for The Office episodes across each season. Most episodes across all seasons receive between roughly 1,500 and 2,500 votes, though several seasons contain outliers with significantly higher votes. The most voted episodes are “Finale” (Season 9) with 7,934 votes, “Stress Relief” (Season 5) with 5,948 votes, and “Goodbye, Michael” (Season 7) with 5,749 votes, all of which appear as extreme outliers.
 
-Conclusion and Wrap-Up
+**Conclusion and Wrap-Up**
 
 Overall, the ratings of The Office tend to be strongest during the middle seasons. In contrast, the later seasons show lower median ratings and greater variability, suggesting a decline in audience reception toward the end of the series. Despite this, several episodes stand out, including “Goodbye, Michael,” “Stress Relief,” and the series finale, which receive both extremely high ratings and large numbers of votes. One limitation of this analysis is that it relies only on IMDb ratings and vote counts, which reflect viewer opinions but do not capture other factors such as other critical reviewers.
 
-Connection to Class Ideas
+**Connection to Class Ideas**
 
 The boxplots illustrate the distribution and variation in episode ratings across seasons, making it easier to compare medians and identify outliers. The faceted episode plots allow patterns within each season to be viewed clearly while keeping the visualization organized. These visuals also use a combination of coloring, faceting, and trendlines to portray multiple variables without making the graphs look confusing or cluttered, which helps communicate the relationships in the data more effectively.
