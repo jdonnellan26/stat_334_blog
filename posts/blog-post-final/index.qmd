@@ -71,12 +71,12 @@ How do lifestyle and health factors such as occupation, physical activity, stres
 
 -   Heart Rate: Recorded heart rate while sleeping.
 
-
 ## Primary Visuals
 
 ### Occupational Stress vs. Sleep Duration Plotly
 
 ```{r}
+#| warning: false
 by_occupation <- sleep|>
   group_by(Occupation)|>
   summarise(
@@ -124,7 +124,7 @@ ggplot(data = sleep,
            fill = sleep_disorder))+
   geom_bar()+
   facet_grid(~bmi_category)+
-  theme_minimal(base_size = 15)+
+  theme_minimal(base_size = 11)+
   theme(legend.position = "none")+
   scale_fill_viridis_d()+
   labs(
@@ -133,10 +133,7 @@ ggplot(data = sleep,
     y = "Count")
 ```
 
-**Interpretation:** This faceted bar graph shows how sleep disorders vary across BMI categories.
-Individuals in the normal BMI category most often report no sleep disorder, while those in the overweight category show noticeably higher counts of both insomnia and sleep apnea.
-In the obese category, sleep disorders make up a larger share of the group, especially sleep apnea.
-Overall, the graph suggests that as BMI increases, the likelihood of experiencing a sleep disorder also increases. A faceted bar graph was selected because it clearly compares the frequency of categorical sleep disorders across BMI groups while keeping each BMI category separate.
+**Interpretation:** This faceted bar graph shows how sleep disorders vary across BMI categories. Individuals in the normal BMI category most often report no sleep disorder, while those in the overweight category show noticeably higher counts of both insomnia and sleep apnea. In the obese category, sleep disorders make up a larger share of the group, especially sleep apnea. Overall, the graph suggests that as BMI increases, the likelihood of experiencing a sleep disorder also increases. A faceted bar graph was selected because it clearly compares the frequency of categorical sleep disorders across BMI groups while keeping each BMI category separate.
 
 ## Sleep Disorder by Occupation
 
@@ -145,9 +142,9 @@ sleep |>
   filter(Occupation != "Manager" & Occupation != "Software Engineer" & Occupation != "Scientist")|>
   ggplot(aes(x = sleep_disorder,
              fill = sleep_disorder)) +
-  geom_bar(alpha = 0.7) +
+  geom_bar() +
   facet_wrap(~Occupation) +
-  theme_minimal(base_size = 15) +
+  theme_minimal(base_size = 11) +
   theme(legend.position = "none") +
   scale_fill_viridis_d()+
   labs(
@@ -157,8 +154,7 @@ sleep |>
   )
 ```
 
-Interpretation: This faceted bar graph shows that sleep disorder prevalence varies noticeably by occupation. Doctors, engineers, accountants, and lawyers most commonly report having no sleep disorder, while nurses show a very high rate of sleep apnea and teachers and salespeople have much higher counts of insomnia. This suggests occupation may be associated with different types of sleep issues, potentially due to varying stress levels, work schedules, or physical demands. Occupations Manager, scientist, and Software Engineer were removed due to small sample sizes and lowers the number of facets to 7. A faceted bar graph was appropriate here because it allows for quick comparisons of sleep disorder prevalence across multiple occupations without overcrowding a single graph.
-
+**Interpretation:** This faceted bar graph shows that sleep disorder prevalence varies noticeably by occupation. Doctors, engineers, accountants, and lawyers most commonly report having no sleep disorder, while nurses show a very high rate of sleep apnea and teachers and salespeople have much higher counts of insomnia. This suggests occupation may be associated with different types of sleep issues, potentially due to varying stress levels, work schedules, or physical demands. Occupations Manager, scientist, and Software Engineer were removed due to small sample sizes and lowers the number of facets to 7. A faceted bar graph was appropriate here because it allows for quick comparisons of sleep disorder prevalence across multiple occupations without overcrowding a single graph.
 
 ### Sleep Duration by Sleep Disorder
 
@@ -170,6 +166,7 @@ sleep |>
   geom_boxplot() +
   theme_minimal(base_size = 15) +
   theme(legend.position = "none") +
+  scale_fill_brewer()+
   labs(
     title = "Sleep Duration by Sleep Disorder Status",
     x = "Sleep Disorder",
@@ -177,8 +174,7 @@ sleep |>
   )
 ```
 
-Interpretation: This boxplot shows that people without a sleep disorder typically have longer and more consistent sleep duration than those with insomnia, whose sleep duration is both shorter and tightly clustered around a lower median. Individuals with sleep apnea display the greatest variability in sleep duration, indicating their sleep patterns may be less predictable despite some reporting relatively long sleep duration. A boxplot was chosen because it summarizes the distribution of sleep duration within each sleep disorder by showing medians and range.
-
+**Interpretation:** This boxplot shows that people without a sleep disorder typically have longer and more consistent sleep duration than those with insomnia, whose sleep duration is both shorter and tightly clustered around a lower median. Individuals with sleep apnea display the greatest variability in sleep duration, indicating their sleep patterns may be less predictable despite some reporting relatively long sleep duration. A boxplot was chosen because it summarizes the distribution of sleep duration within each sleep disorder by showing medians and range.
 
 ## Conclusion
 
@@ -193,4 +189,3 @@ A second limitation is that several variables, such as stress level and sleep qu
 ## Future Research
 
 Given more time, I would further explore how sleep quality is measured by wearable technology platforms such as Whoop and Apple Health. I would look into how these devices calculate metrics like “sleep score,” including which variables are used to determine it. Looking back on this project, I would have liked to compare how different wearable technologies measure and record sleep data. Examining differences in how these devices calculate and report sleep metrics could lead to some interesting findings
-
